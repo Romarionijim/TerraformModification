@@ -24,29 +24,6 @@ resource "aws_instance" "web_server" {
   key_name                    = "ec2-lb"
 }
 
-resource "aws_lb_target_group_attachment" "attachment_1" {
-  target_group_arn = aws_lb_target_group.target_group_1.arn
-  target_id        = aws_instance.web_server.id
-  port             = 3000
-  depends_on       = [aws_instance.web_server]
-}
-
-resource "aws_lb_target_group_attachment" "attachment_2" {
-  target_group_arn = aws_lb_target_group.target_group_2.arn
-  target_id        = aws_instance.web_server.id
-  port             = 3000
-  depends_on       = [aws_instance.web_server]
-
-}
-
-resource "aws_lb_target_group_attachment" "attachment_3" {
-  target_group_arn = aws_lb_target_group.target_group_3.arn
-  target_id        = aws_instance.web_server.id
-  port             = 3000
-  depends_on       = [aws_instance.web_server]
-
-}
-
 data "aws_vpc" "dev_vpc" {
   tags = {
     Name = "dev-vpc"
@@ -210,6 +187,29 @@ resource "aws_alb_listener_rule" "rule_3" {
       values = ["/edit"]
     }
   }
+}
+
+resource "aws_lb_target_group_attachment" "attachment_1" {
+  target_group_arn = aws_lb_target_group.target_group_1.arn
+  target_id        = aws_instance.web_server.id
+  port             = 3000
+  depends_on       = [aws_instance.web_server]
+}
+
+resource "aws_lb_target_group_attachment" "attachment_2" {
+  target_group_arn = aws_lb_target_group.target_group_2.arn
+  target_id        = aws_instance.web_server.id
+  port             = 3000
+  depends_on       = [aws_instance.web_server]
+
+}
+
+resource "aws_lb_target_group_attachment" "attachment_3" {
+  target_group_arn = aws_lb_target_group.target_group_3.arn
+  target_id        = aws_instance.web_server.id
+  port             = 3000
+  depends_on       = [aws_instance.web_server]
+
 }
 
 data "aws_acm_certificate" "certificate" {
